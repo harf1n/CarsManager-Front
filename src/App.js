@@ -9,6 +9,8 @@ import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import AddCar from './cars/AddCar';
 import EditCar from './cars/EditCar';
 import ViewCar from './cars/ViewCar';
+import Welcome from "./pages/Welcome";
+import UpgradeCar from "./cars/UpgradeCar";
 
 function App() {
   const getAuth = JSON.parse(localStorage.getItem('auth'));
@@ -25,12 +27,14 @@ function App() {
       <Router>
       {auth && <Navbar changeStateLogout={changeStateLogout}/>}
       <Routes>
-        <Route exact path="/" element={<Login changeState={changeState} auth={auth}/>}/>
+        <Route exact path="/" element={<Welcome changeState={changeState} auth={auth}/>}/>
+        <Route exact path="/login" element={<Login changeState={changeState} auth={auth}/>}/>
         <Route exact path="/register" element={<Register/>}/>
         <Route exact path="/home" element={<Home/>}/>
         <Route exact path="/addcar" element={<AddCar/>}/>
         <Route exact path="/editcar/:id" element={<EditCar/>}/>
         <Route exact path="/viewcar/:id" element={<ViewCar/>}/>
+        <Route exact path="/upgradecar/:id" element={<UpgradeCar/>}/>
       </Routes>
       </Router>
     </div>

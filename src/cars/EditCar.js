@@ -26,7 +26,7 @@ export default function EditCar() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    await axios.put(`http://localhost:8080/car/${id}`, car);
+    await axios.put(`http://localhost:8080/car/edit/${id}`, car);
     navigate("/home");
   };
 
@@ -83,7 +83,7 @@ export default function EditCar() {
             </div>
             <div className="mb-3">
               <label htmlFor="Horsepower" className="form-label">
-              Horsepower
+              Stock Horsepower
               </label>
               <input
                 type={"number"}

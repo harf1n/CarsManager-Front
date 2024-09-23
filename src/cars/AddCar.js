@@ -6,6 +6,8 @@ import { validYear, validHp } from "../regex.js";
 export default function AddCar() {
   let navigate = useNavigate();
 
+  let username = localStorage.getItem("username")
+
   const [markError, setMarkError] = useState(false);
   const [modelError, setModelError] = useState(false);
   const [yearErr, setYearErr] = useState(false);
@@ -18,9 +20,11 @@ export default function AddCar() {
     model: "",
     year: "",
     hp: "",
+    totalHp: "",
+
   });
 
-  const { mark, model, year, hp } = car;
+  const { mark, model, year, hp , totalHp} = car;
 
   const onInputChange = (e) => {
     setMarkError(false);
@@ -54,7 +58,9 @@ export default function AddCar() {
      else if (!validHp.test(hp)) {
       setHpError(true);
     } else {
-      await axios.post("http://localhost:8080/car", car);
+      car.totalHp = car.hp;
+      console.log(car.totalHp)
+      await axios.put(`http://localhost:8080/user/addCar/${username}`, car);
       navigate("/home");
     }
   };

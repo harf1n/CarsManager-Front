@@ -5,6 +5,8 @@ import { Link, useParams } from "react-router-dom";
 export default function Home() {
   const [cars, setCars] = useState([]);
 
+  let username = localStorage.getItem('username');
+
   const {id}=useParams()
 
   useEffect(() => {
@@ -12,12 +14,13 @@ export default function Home() {
   }, []);
 
   const loadCars = async () => {
-    const result = await axios.get("http://localhost:8080/cars");
+    console.log(username);
+    const result = await axios.get(`http://localhost:8080/user/cars/${username}`);
     setCars(result.data);
   };
 
   const deleteCar=async(id)=>{
-    await axios.delete(`http://localhost:8080/car/${id}`)
+    await axios.delete(`http://localhost:8080/car/delete/${username}/${id}`)
     loadCars()
   }
 
@@ -43,8 +46,9 @@ export default function Home() {
                 <td>{car.mark}</td>
                 <td>{car.model}</td>
                 <td>{car.year}</td>
-                <td>{car.hp}</td>
+                <td>{car.totalHp}</td>
                 <td>
+                  <Link className="btn btn-primary mx-2" to={`/upgradecar/${car.id}`}>Upgrade</Link>
                   <Link className="btn btn-primary mx-2" to={`/viewcar/${car.id}`}>View</Link>
                   <Link className="btn btn-outline-primary mx-2" to={`/editcar/${car.id}`}>Edit</Link>
                   <button className="btn btn-danger mx-2" onClick={()=>deleteCar(car.id)}>Delete</button>

@@ -14,10 +14,11 @@ export default function Register() {
   const [user, setUser] = useState({
     username: "",
     email: "",
-    password: ""
+    password: "",
+    money: 1000
   });
 
-  const { username, email, password } = user;
+  const { username, email, password, money } = user;
 
   const validEmailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
@@ -36,6 +37,7 @@ export default function Register() {
   };
 
   const validate = async () => {
+
     if(!username.trim()){
       setUserError(true);
     }
@@ -49,13 +51,14 @@ export default function Register() {
       setEmailValError(true);
     } 
     else{
-      const userSearch = (await axios.post(`http://localhost:8080/username`, user)).data
+
+      const userSearch = ((await axios.get(`http://localhost:8080/user/isExist`, user)).data)
       if(userSearch){
         setUserExistError(true);
       }
       else{
-        await axios.post("http://localhost:8080/user", user);
-        navigate("/");
+        axios.post("http://localhost:8080/user/add", user);
+        navigate("/login");
       }
       
     }

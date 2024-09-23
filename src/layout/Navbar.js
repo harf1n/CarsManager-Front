@@ -1,11 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import axios from "axios";
 
 export default function Navbar(props) {
   function logout(){
-    localStorage.setItem('auth', false);
+    localStorage.setItem('auth', 'false');
     props.changeStateLogout();
   }
+
   return (
     <div>
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -15,6 +17,7 @@ export default function Navbar(props) {
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <div>
+                    <a className="balance">Balance: ${}</a>
                   <Link className='btn btn-outline-light' to="/addcar">Add Car</Link>
                   <Link style={{marginLeft: 20}} className='btn btn-outline-light' onClick={logout} to="/">Log out</Link>
                 </div>

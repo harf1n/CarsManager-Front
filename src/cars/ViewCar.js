@@ -10,7 +10,8 @@ export default function ViewCar() {
     mark: "",
     model: "",
     year: "",
-    hp: ""
+    hp: "",
+    totalHp: ""
   });
 
   useEffect(() => {
@@ -46,7 +47,7 @@ export default function ViewCar() {
                 </li>
                 <li className="list-group-item">
                   <b>Horsepower: </b>
-                  {car.hp}
+                  {car.totalHp}
                 </li>
               </ul>
             </div>
